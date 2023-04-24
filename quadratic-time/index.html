@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+    </style>
+    <title>Bubble Sort</title>
+  </head>
+  <body
+    style="
+      background: rgb(238, 6, 233);
+      background: linear-gradient(
+        90deg,
+        rgba(238, 6, 233, 1) 0%,
+        rgba(0, 212, 255, 1) 100%
+      );
+      font-family: roboto, monospace;
+    "
+  >
+    <main>
+      <div
+        style="
+          margin: auto;
+          height: 50vh;
+          width: 90vw;
+          display: flex;
+          flex-direction: column;
+          align-items: left;
+          justify-content: left;
+          gap: 10px;
+          overflow-x: auto;
+        "
+      >
+        <h1 style="color: whitesmoke">Bubble Sort</h1>
+        <button
+          type="button"
+          onclick="bubbleSort()"
+          style="
+            background: whitesmoke;
+            padding: 5px 10px;
+            border-radius: 3px;
+            width: 100px;
+            box-shadow: 3px 3px;
+          "
+        >
+          Sort
+        </button>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            color: whitesmoke;
+          "
+        >
+          <div>Iterations: <span id="iter-counter">0</span></div>
+          <div>Swaps: <span id="swap-counter">0</span></div>
+        </div>
+        <div
+          id="array-container"
+          style="display: flex; flex-direction: row; gap: 6px"
+        ></div>
+      </div>
+    </main>
+  </body>
+  <script type="text/javascript">
+    const container = document.getElementById("array-container");
+    const NUM_ELEMENTS = 10;
+    for (let i = 0; i < NUM_ELEMENTS; i++) {
+      let item = document.createElement("div");
+      item.className = "item";
+      item.innerText = Math.floor(Math.random() * NUM_ELEMENTS) + 1;
+      item.style =
+        "width: 20px; height: auto; border: 2px solid #000; padding: 5px; text-align: center; border-radius: 3px; background: whitesmoke; box-shadow: 3px 3px";
+      container.appendChild(item);
+    }
+  </script>
+  <script type="text/javascript">
+    function bubbleSort() {
+      let arr = document.querySelectorAll(".item");
+      let counter = document.getElementById("iter-counter");
+      let swaps = document.getElementById("swap-counter");
+
+      function findSwaps(i) {
+        for (let j = 0; j < arr.length - 1 - i; j++) {
+          if (parseInt(arr[j].innerText) > parseInt(arr[j + 1].innerText)) {
+            let tmp = parseInt(arr[j].innerText);
+            let tmp2 = parseInt(arr[j + 1].innerText);
+            arr[j].innerText = tmp2;
+            arr[j + 1].innerText = tmp;
+            swaps.innerText = (parseInt(swaps.innerText) + 1).toString();
+          }
+          counter.innerText = (parseInt(counter.innerText) + 1).toString();
+        }
+      }
+      for (let i = 0; i < arr.length; i++) {
+        setTimeout(() => {
+          findSwaps(i);
+        }, 1000 * i);
+      }
+    }
+  </script>
+</html>
