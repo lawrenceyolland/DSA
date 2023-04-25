@@ -27,9 +27,9 @@ func (q *Queue) Enqueue(val int) {
 	q.tail = &newNode
 }
 
-func (q *Queue) Dequeue() int {
+func (q *Queue) Dequeue() (int, bool) {
 	if q.head == nil {
-		panic("empty queue")
+		return 0, false
 	}
 
 	val := q.head.value
@@ -40,20 +40,20 @@ func (q *Queue) Dequeue() int {
 		q.tail = nil
 	}
 
-	return val
+	return val, true
 }
 
-func (q *Queue) Peek() int {
+func (q *Queue) Peek() (int, bool) {
 	if q.head == nil {
-		panic("empty queue")
+		return 0, false
 	}
-	return q.head.value
+	return q.head.value, true
 }
 
 func main() {
 	q := Queue{}
 
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 5; i++ {
 		q.Enqueue(i)
 	}
 
@@ -64,5 +64,5 @@ func main() {
 			fmt.Printf("[ %d ]", node.value)
 		}
 	}
-
+	// [ 0 ] --> [ 1 ] --> [ 2 ] --> [ 3 ] --> [ 4 ]
 }
