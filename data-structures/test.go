@@ -14,17 +14,18 @@ type Queue struct {
 }
 
 func (q *Queue) Enqueue(val int) {
-	q.length++
-
 	newNode := Node{value: val}
-	if q.tail == nil {
+
+	q.length++
+	if q.head == nil {
 		q.head = &newNode
-		q.tail = &newNode
+		q.tail = q.head
 		return
 	}
 
 	q.tail.next = &newNode
 	q.tail = &newNode
+	return
 }
 
 func (q *Queue) Dequeue() (int, bool) {
@@ -34,10 +35,11 @@ func (q *Queue) Dequeue() (int, bool) {
 
 	val := q.head.value
 	q.head = q.head.next
-	q.length--
 
+	q.length--
 	if q.head == nil {
 		q.tail = nil
+		return 0, false
 	}
 
 	return val, true
@@ -51,19 +53,15 @@ func (q *Queue) Peek() (int, bool) {
 }
 
 func main() {
+	fmt.Print("main")
+
 	q := Queue{}
 
-	for i := 0; i < 5; i++ {
+	for i := 0; i < 10; i++ {
 		q.Enqueue(i)
 	}
 
 	for node := q.head; node != nil; node = node.next {
-		if node.next != nil {
-			fmt.Printf("[ %d ] --> ", node.value)
-		} else {
-			fmt.Printf("[ %d ]", node.value)
-		}
+		fmt.Printf("[ %d ]-->", node.value)
 	}
-
-	// [ 0 ] --> [ 1 ] --> [ 2 ] --> [ 3 ] --> [ 4 ]
 }
