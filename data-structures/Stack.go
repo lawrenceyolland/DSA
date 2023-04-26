@@ -9,13 +9,11 @@ type Node struct {
 
 type Stack struct {
 	head   *Node
-	tail   *Node
 	length int
 }
 
 func (s *Stack) Push(val int) {
 	newNode := Node{value: val}
-	s.length++
 
 	if s.head == nil {
 		s.head = &newNode
@@ -24,6 +22,7 @@ func (s *Stack) Push(val int) {
 
 	newNode.prev = s.head
 	s.head = &newNode
+	s.length++
 }
 
 func (s *Stack) Pop() (int, bool) {
