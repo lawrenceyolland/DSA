@@ -15,8 +15,8 @@ type Queue struct {
 
 func (q *Queue) Enqueue(val int) {
 	q.length++
-
 	newNode := Node{value: val}
+
 	if q.tail == nil {
 		q.head = &newNode
 		q.tail = &newNode
@@ -28,7 +28,7 @@ func (q *Queue) Enqueue(val int) {
 }
 
 func (q *Queue) Dequeue() (int, bool) {
-	if q.head == nil {
+	if q.length == 0 {
 		return 0, false
 	}
 
@@ -36,15 +36,11 @@ func (q *Queue) Dequeue() (int, bool) {
 	q.head = q.head.next
 	q.length--
 
-	if q.head == nil {
-		q.tail = nil
-	}
-
 	return val, true
 }
 
 func (q *Queue) Peek() (int, bool) {
-	if q.head == nil {
+	if q.length == 0 {
 		return 0, false
 	}
 	return q.head.value, true

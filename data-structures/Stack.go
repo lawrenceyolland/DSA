@@ -14,6 +14,7 @@ type Stack struct {
 
 func (s *Stack) Push(val int) {
 	newNode := Node{value: val}
+	s.length++
 
 	if s.head == nil {
 		s.head = &newNode
@@ -22,27 +23,22 @@ func (s *Stack) Push(val int) {
 
 	newNode.prev = s.head
 	s.head = &newNode
-	s.length++
 }
 
 func (s *Stack) Pop() (int, bool) {
-	if s.head == nil {
+	if s.length == 0 {
 		return 0, false
 	}
 
 	val := s.head.value
 	s.head = s.head.prev
 	s.length--
-	
-	if s.head == nil {
-		return 0, false
-	}
 
 	return val, true
 }
 
 func (s *Stack) Peek() (int, bool) {
-	if s.head == nil {
+	if s.length == 0 {
 		return 0, false
 	}
 	return s.head.value, true
@@ -59,10 +55,10 @@ func main() {
 		if node.prev == nil {
 			fmt.Printf("[ %d ]", node.value)
 		} else {
-			fmt.Printf("[ %d ]<--", node.value)
+			fmt.Printf("[ %d ] <--", node.value)
 		}
 	}
-	// [ 4 ]<--[ 3 ]<--[ 2 ]<--[ 1 ]<--[ 0 ]
+	// [ 4 ] <-- [ 3 ] <-- [ 2 ] <-- [ 1 ] <-- [ 0 ]
 
 	s.Pop()
 	fmt.Print("\n")
@@ -71,8 +67,8 @@ func main() {
 		if node.prev == nil {
 			fmt.Printf("[ %d ]", node.value)
 		} else {
-			fmt.Printf("[ %d ]<--", node.value)
+			fmt.Printf("[ %d ] <--", node.value)
 		}
 	}
-	// [ 3 ]<--[ 2 ]<--[ 1 ]<--[ 0 ]  
+	// [ 3 ] <-- [ 2 ] <-- [ 1 ] <-- [ 0 ]  
 }
